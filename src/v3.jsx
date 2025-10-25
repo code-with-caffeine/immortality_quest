@@ -94,7 +94,7 @@ const HomePage = () => {
 };
 
 // ===== RESEARCH BLOG COMPONENT =====
-const ResearchBlog = () => {
+const ResearchBlog = ({ onArticleClick }) => {
   const [selectedCategory, setSelectedCategory] = useState('all');
 
   const articles = [
@@ -178,6 +178,7 @@ const ResearchBlog = () => {
           {filtered.map((article, i) => (
             <article 
               key={i}
+              onClick={() => onArticleClick && onArticleClick()}
               className="group p-8 bg-gradient-to-r from-amber-950/10 to-transparent border-l-2 border-amber-900/30 hover:border-amber-600 transition-all duration-500 cursor-pointer"
             >
               <div className="flex items-start justify-between mb-4">
@@ -746,7 +747,7 @@ const ImmortalityHub = () => {
       {/* Navigation */}
       <nav className="fixed top-0 w-full z-50 bg-black/80 backdrop-blur-md border-b border-amber-900/30">
         <div className="max-w-7xl mx-auto px-6 py-6 flex items-center justify-between">
-          <div className="flex items-center gap-2 cursor-pointer" onClick={() => setCurrentPage('article')}>
+          <div className="flex items-center gap-2 cursor-pointer" onClick={() => setCurrentPage('home')}>
             <Sparkles className="w-6 h-6 text-amber-400" />
             <span className="text-xl font-thin tracking-widest">IMMORTALIS</span>
           </div>
@@ -778,7 +779,7 @@ const ImmortalityHub = () => {
       {/* Page Content */}
       <div className="pt-20">
         {currentPage === 'home' && <HomePage />}
-        {currentPage === 'research' && <ResearchBlog />}
+        {currentPage === 'research' && <ResearchBlog onArticleClick={() => setCurrentPage('article')} />}
         {currentPage === 'progress' && <ProgressTracker />}
         {currentPage === 'article' && <ArticleView onBack={() => setCurrentPage('research')} />}
         {currentPage === 'community' && <CommunityPage />}
